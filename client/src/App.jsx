@@ -1,7 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { HomeLayout } from "./pages"; //using named imports from index file
+import {
+  HomeLayout,
+  Landing,
+  DashboardLayout,
+  Register,
+  Login,
+  Error,
+} from "./pages"; //using named imports from index file
 
 //setting up router
 const router = createBrowserRouter([
@@ -10,8 +17,16 @@ const router = createBrowserRouter([
     element: <HomeLayout />,
   },
   {
-    path: "/about",
-    element: <h1>about</h1>,
+    path: "/dashboard",
+    element: <DashboardLayout />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 
