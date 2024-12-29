@@ -15,18 +15,24 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
-  },
-  {
-    path: "/dashboard",
-    element: <DashboardLayout />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
+    children: [
+      {         // to setup the index page for parent route. i.e., this page will be displayed on the parent page
+        index: true,
+        element: <Landing />,
+      },
+      {
+        path: "dashboard",
+        element: <DashboardLayout />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+    ],
   },
 ]);
 

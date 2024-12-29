@@ -1,10 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React from "react";
+import { Outlet } from "react-router-dom";
 
 const HomeLayout = () => {
   return (
-    <div>HomeLayout</div>
-  )
-}
+    <>
+      <h2>Navbar</h2>
+      <Outlet /> {/*To utilize this as a prent route and project the content of children route*/}
+    </>
+  );
+};
 
-export default HomeLayout
+export default HomeLayout;
