@@ -5,7 +5,6 @@ import { Outlet } from "react-router-dom";
 const HomeLayout = () => {
   return (
     <>
-      <h2>Navbar</h2>
       <Outlet /> {/*To utilize this as a prent route and project the content of children route*/}
     </>
   );
