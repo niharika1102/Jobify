@@ -3,15 +3,14 @@
 import React from "react";
 import Wrapper from "../assets/wrappers/LandingPage";
 import main from "../assets/images/main.svg";
-import logo from "../assets/images/logo.svg";
 import { Link } from "react-router-dom";
-import Logo from "../assets/components/Logo";
+import { Logo } from "../components";
 
 const Landing = () => {
   return (
     <Wrapper>
       <nav>
-        <Logo/>
+        <Logo />
       </nav>
       <div className="container page">
         <div className="info">
@@ -23,8 +22,12 @@ const Landing = () => {
             discover opportunities, and stay ahead in your job search—all in one
             place. Your next big move starts here!
           </p>
-          <Link to="/register" className="btn register-link">Register</Link>
-          <Link to="/login" className="btn">Login / Explore App</Link>
+          <Link to="/register" className="btn register-link">
+            Register
+          </Link>
+          <Link to="/login" className="btn">
+            Login / Explore App
+          </Link>
         </div>
         <img src={main} alt="landing-img" className="img main-img" />
       </div>
