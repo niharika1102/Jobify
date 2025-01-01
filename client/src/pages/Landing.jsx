@@ -2,19 +2,23 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledBtn = styled.button`
-  font-size: 2.5rem;
-  color: blue;
-  background: pink;
-  border: 4px black solid;
+const Wrapper = styled.div`
+  background: blue;
+  h2 {
+    color: green;
+  }
+  div {
+    color: pink;
+    background: purple;
+  }
 `;
 
 const Landing = () => {
   return (
-    <>
-      <div>Landing</div>
-      <StyledBtn>Hello world!!</StyledBtn>
-    </>
+    <Wrapper>
+      <h2>Landing</h2>
+      <div className="content">Hello user!! Welcome to jobify</div>
+    </Wrapper>
   );
 };
 
