@@ -187,7 +187,7 @@ ul {
 
 .btn {
   cursor: pointer;
-  color: var(--white);
+  color: var(--black);
   background: var(--primary-500);
   border: transparent;
   border-radius: var(--border-radius);
