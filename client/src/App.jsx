@@ -15,8 +15,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
+    errorElement: <Error />,       // error handling 
+
     children: [
-      {         // to setup the index page for parent route. i.e., this page will be displayed on the parent page
+      {
+        // to setup the index page for parent route. i.e., this page will be displayed on the parent page
         index: true,
         element: <Landing />,
       },
