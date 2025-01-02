@@ -5,6 +5,7 @@ import Wrapper from "../assets/wrappers/Dashboard";
 import { BigSidebar, Navbar, SmallSidebar } from "../components";
 
 //setting up a context to pass values to components without passing it through the entire component tree
+// @ts-ignore
 const DashboardContext = createContext();
 
 const DashboardLayout = () => {
@@ -20,7 +21,7 @@ const DashboardLayout = () => {
 
   //function to show and hid sidebar
   const toggleSidebar = () => {
-    setShowSidebar(!showSidebar);
+    setShowSidebar(!showSidebar);    
   };
 
   //function to logout user
