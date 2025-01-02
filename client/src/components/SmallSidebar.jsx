@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import Wrapper from "../assets/wrappers/SmallSidebar";
 import { useDashboardContext } from "../pages/DashboardLayout";
@@ -7,13 +8,19 @@ import links from "../utils/links";
 import { NavLink } from "react-router-dom";
 
 const SmallSidebar = () => {
-  const data = useDashboardContext();
+  const { showSidebar, toggleSidebar } = useDashboardContext();
 
   return (
     <Wrapper>
-      <div className="sidebar-container show-sidebar">
+      <div
+        className={
+          showSidebar ? "sidebar-container show-sidebar" : "sidebar-container"
+        }
+      >
+        {/*If the showSidebar is true, i.e., the sidebar is not visible on the screen, then we display it. Else, we dont display it.*/}
         <div className="content">
-          <button type="button" className="close-btn">
+          <button type="button" className="close-btn" onClick={toggleSidebar}>
+            {/*When we click on the X button in the sidebar, the value of the state changes to the reverse as pervious.*/}
             <FaTimes />
           </button>
           <header>
@@ -23,7 +30,13 @@ const SmallSidebar = () => {
             {links.map((link) => {
               const { path, text, icon } = link;
               return (
-                <NavLink to={path} key={text} className="nav-link">
+                <NavLink
+                  to={path}
+                  key={text}
+                  className="nav-link"
+                  onClick={toggleSidebar}
+                  end        
+                >        {/*"end" is to remove the active class from the index element of the route. Here, all jobs*/}
                   <span className="icon">{icon}</span>
                   {text}
                 </NavLink>
