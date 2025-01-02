@@ -8,6 +8,11 @@ import {
   Register,
   Login,
   Error,
+  AddJob,
+  AllJobs,
+  Stats,
+  Profile,
+  Admin
 } from "./pages"; //using named imports from index file
 
 //setting up router
@@ -15,7 +20,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
-    errorElement: <Error />,       // error handling 
+    errorElement: <Error />, // error handling
 
     children: [
       {
@@ -24,16 +29,39 @@ const router = createBrowserRouter([
         element: <Landing />,
       },
       {
-        path: "dashboard",
-        element: <DashboardLayout />,
-      },
-      {
         path: "register",
         element: <Register />,
       },
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "dashboard",
+        element: <DashboardLayout />,
+
+        children: [
+          {
+            index: true,
+            element: <AllJobs/>
+          },
+          {
+            path: 'add-job',
+            element: <AddJob/>
+          },
+          {
+            path: 'stats',
+            element: <Stats/>
+          },
+          {
+            path: 'profile',
+            element: <Profile/>
+          },
+          {
+            path: 'admin',
+            element: <Admin/>
+          },
+        ]
       },
     ],
   },
