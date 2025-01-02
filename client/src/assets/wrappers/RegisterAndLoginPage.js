@@ -26,7 +26,7 @@ const Wrapper = styled.section`
     margin-top: 1rem;
   }
   .member-btn {
-    color: var(--primary-500);
+    color: var(--primary-600);
     letter-spacing: var(--letter-spacing);
     margin-left: 0.25rem;
   }
