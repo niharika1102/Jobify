@@ -32,7 +32,7 @@ const Wrapper = styled.div`
     padding: 0.5rem;
     background: transparent;
     border-color: transparent;
-    color: var(--white);
+    color: var(--black);
     letter-spacing: var(--letter-spacing);
     text-transform: capitalize;
     cursor: pointer;
