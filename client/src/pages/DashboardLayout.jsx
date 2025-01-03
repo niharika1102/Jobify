@@ -3,17 +3,17 @@ import React, { createContext, useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Dashboard";
 import { BigSidebar, Navbar, SmallSidebar } from "../components";
+import { checkDefaultTheme } from "../App";
 
 //setting up a context to pass values to components without passing it through the entire component tree
 // @ts-ignore
 const DashboardContext = createContext();
 
-// eslint-disable-next-line react/prop-types
-const DashboardLayout = ({isDarkThemeEnabled}) => {
+const DashboardLayout = () => {
   //global values - temp (just for testing)
   const user = { name: "john" }; //name of user for profile
   const [showSidebar, setShowSidebar] = useState(false); //to show or hide sidebar
-  const [isDarkTheme, setIsDarkTheme] = useState(isDarkThemeEnabled); //to toggle betwenn light and dark theme
+  const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme); //to toggle betwenn light and dark theme
 
   //function to toggle dark theme
   const toggleDarkTheme = () => {
