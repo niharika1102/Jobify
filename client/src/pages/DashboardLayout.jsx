@@ -41,7 +41,7 @@ const DashboardLayout = () => {
       }}
     >
       <Wrapper>
-        <main className="darshboard">
+        <main className="dashboard">
           <SmallSidebar />
           <BigSidebar />
           <div>
