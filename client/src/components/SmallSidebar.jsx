@@ -6,6 +6,7 @@ import { FaTimes } from "react-icons/fa";
 import Logo from "./Logo";
 import links from "../utils/links";
 import { NavLink } from "react-router-dom";
+import Navlinks from "./Navlinks";
 
 const SmallSidebar = () => {
   const { showSidebar, toggleSidebar } = useDashboardContext();
@@ -26,23 +27,7 @@ const SmallSidebar = () => {
           <header>
             <Logo />
           </header>
-          <div className="nav-links">
-            {links.map((link) => {
-              const { path, text, icon } = link;
-              return (
-                <NavLink
-                  to={path}
-                  key={text}
-                  className="nav-link"
-                  onClick={toggleSidebar}
-                  end        
-                >        {/*"end" is to remove the active class from the index element of the route. Here, all jobs*/}
-                  <span className="icon">{icon}</span>
-                  {text}
-                </NavLink>
-              );
-            })}
-          </div>
+          <Navlinks />
         </div>
       </div>
     </Wrapper>
