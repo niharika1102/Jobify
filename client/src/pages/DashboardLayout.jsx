@@ -8,20 +8,25 @@ import { BigSidebar, Navbar, SmallSidebar } from "../components";
 // @ts-ignore
 const DashboardContext = createContext();
 
-const DashboardLayout = () => {
+// eslint-disable-next-line react/prop-types
+const DashboardLayout = ({isDarkThemeEnabled}) => {
   //global values - temp (just for testing)
   const user = { name: "john" }; //name of user for profile
   const [showSidebar, setShowSidebar] = useState(false); //to show or hide sidebar
-  const [isDarkTheme, setIsDarkTheme] = useState(false); //to toggle betwenn light and dark theme
+  const [isDarkTheme, setIsDarkTheme] = useState(isDarkThemeEnabled); //to toggle betwenn light and dark theme
 
   //function to toggle dark theme
   const toggleDarkTheme = () => {
-    console.log("toggle dark theme");
+    const newDarkTheme = !isDarkTheme;
+    setIsDarkTheme(newDarkTheme);
+    document.body.classList.toggle("dark-theme", newDarkTheme); //toggle method requires a class (here, dark-theme) whose properties/styles should be applied to the element. The 2nd parameter needed is a force (i.e., a variable) on change of whose value the styles/properties will be applied to the element
+    // @ts-ignore
+    localStorage.setItem("darkTheme", newDarkTheme); //to save the theme preference in the local storage
   };
 
   //function to show and hid sidebar
   const toggleSidebar = () => {
-    setShowSidebar(!showSidebar);    
+    setShowSidebar(!showSidebar);
   };
 
   //function to logout user
