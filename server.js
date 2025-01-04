@@ -7,9 +7,9 @@ import { nanoid } from "nanoid";
 
 //local data for testing
 let jobs = [
-    { id: nanoid(), company: "cognida.ai", position: "frontend developer" },
-    { id: nanoid(), company: "microsoft", position: "product manager" }
-]
+  { id: nanoid(), company: "cognida.ai", position: "frontend developer" },
+  { id: nanoid(), company: "microsoft", position: "product manager" },
+];
 
 const app = express();
 app.use(express.json()); //middleware setup
@@ -30,9 +30,24 @@ app.post("/", (req, res) => {
 
 //get all jobs route
 app.get("/api/v1/jobs", (req, res) => {
-    res.status(200).json({jobs});       //adding a status is not complusory, but it is a good practice
+  res.status(200).json({ jobs }); //adding a status is not complusory, but it is a good practice
+});
+
+//create job route
+app.post("/api/v1/jobs", (req, res) => {
+  const { company, position } = req.body;
+  if (!company || !position) {
+    return res.status(400).json({ message: "Please enter company name and position." });
+  }
+
+  const id = nanoid(10);
+  const job = { id, company, position };
+  jobs.push(job);
+
+  res.status(200).json({ job });
 })
 
+//Port setup
 const port = process.env.PORT || 5100;
 
 app.listen(port, () => {
