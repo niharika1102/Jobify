@@ -33,7 +33,8 @@ app.get("/api/v1/jobs", (req, res) => {
   res.status(200).json({ jobs }); //adding a status is not complusory, but it is a good practice
 });
 
-//create job route
+//create job route - we take in company name and position given by the user in the req.body. If any of it is missing, an error is shown to the user. If all ok, we generate an id from "nanoid" and push the entire job object to the jobs array.
+// @ts-ignore
 app.post("/api/v1/jobs", (req, res) => {
   const { company, position } = req.body;
   if (!company || !position) {
@@ -49,7 +50,7 @@ app.post("/api/v1/jobs", (req, res) => {
   res.status(201).json({ job });
 });
 
-//get single job
+//get single job - We compare the id given by the user with the ones available in the database. If found, we return it. Else, we return error.
 // @ts-ignore
 app.get("/api/v1/jobs/:id", (req, res) => {
   const { id } = req.params;
@@ -62,7 +63,7 @@ app.get("/api/v1/jobs/:id", (req, res) => {
   res.status(200).json({ job });
 });
 
-//edit job
+//edit job - We follow steps of create a job route and search a job. Additionally, we update the original company name and position with the one given to us.
 // @ts-ignore
 app.patch("/api/v1/jobs/:id", (req, res) => {
   const { company, position } = req.body;
@@ -82,6 +83,21 @@ app.patch("/api/v1/jobs/:id", (req, res) => {
 
   res.status(200).json({ message: "Job updated", job });
 });
+
+//delete job - We follow the steps of search for a single job. Additionally, we filter the objects from the jobs array and keep the ones whose id doesnt match with the one given to us. We store this in a variable. Then we update the original jobs array and return success.
+//@ts-ignore
+app.delete("/api/v1/jobs/:id", (req, res) => {
+  const { id } = req.params;
+  const job = jobs.find((job) => job.id === id);
+
+  if (!job) {
+    return res.status(404).json({ message: `No job found with id ${id}` });
+  }
+
+  const newJobs = jobs.filter((job) => job.id !== id);
+  jobs = newJobs;
+  return res.status(200).json({message: "Job deleted"})
+})
 
 //Port setup
 const port = process.env.PORT || 5100;
