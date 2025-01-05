@@ -3,6 +3,7 @@ dotenv.config();
 
 import express from "express";
 import morgan from "morgan"; //provides logs of our requests. it is a middleware
+import mongoose from "mongoose";
 
 //custom imports
 import jobRouter from "./routes/jobRouter.js"; //routers
@@ -41,6 +42,15 @@ app.use((err, req, res, next) => {
 //Port setup
 const port = process.env.PORT || 5100;
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+//connection to mongoose and mongo db
+try {
+  // @ts-ignore
+  await mongoose.connect(process.env.MONGO_URL);
+  app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+  });
+} catch (error) {
+  //in case of an error, the process will exit with the status of 1. It is the process code for error.
+  console.log(error);
+  process.exit(1);
+}
