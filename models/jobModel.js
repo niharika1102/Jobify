@@ -20,7 +20,7 @@ const JobSchema = new Schema({
       default: 'My City',
     },
   },
-    { timestamps: true }
+  { timestamps: true }
 )
 
 export default mongoose.model("Job", JobSchema);
