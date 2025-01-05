@@ -1,3 +1,4 @@
+import "express-async-errors"; //catches all the async errors and passes them to the error middleware
 import * as dotenv from "dotenv";
 dotenv.config();
 
