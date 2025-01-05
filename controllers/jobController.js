@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+import Job from "../models/jobModel.js";
 
 //local data for testing
 let jobs = [
@@ -11,19 +12,9 @@ export const getAllJobs = async (req, res) => {
   res.status(200).json({ jobs }); //adding a status is not complusory, but it is a good practice
 };
 
-//create a job controller - we take in company name and position given by the user in the req.body. If any of it is missing, an error is shown to the user. If all ok, we generate an id from "nanoid" and push the entire job object to the jobs array.
+//create a job controller - we create the job in the schema using the 2nd line of the function
 export const createJob = async (req, res) => {
-  const { company, position } = req.body;
-  if (!company || !position) {
-    return res
-      .status(400)
-      .json({ message: "Please enter company name and position." });
-  }
-
-  const id = nanoid(10);
-  const job = { id, company, position };
-  jobs.push(job);
-
+  const job = await Job.create(req.body); //req.body has all the values that we need to create a job like the company and the position. So, we can skip the destructing part
   res.status(201).json({ job });
 };
 
