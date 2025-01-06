@@ -5,10 +5,10 @@ dotenv.config();
 import express from "express";
 import morgan from "morgan"; //provides logs of our requests. it is a middleware
 import mongoose from "mongoose";
-import { body, validationResult } from "express-validator";
 
 //middleware imports
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
+import { validateTest } from "./middleware/validationMiddleware.js";
 
 //custom imports
 import jobRouter from "./routes/jobRouter.js"; //routers
@@ -25,26 +25,10 @@ app.get("/", (req, res) => {
   res.send("Hello hooman");
 });
 
-app.post(
-  "/api/v1/test",
-  [body("name").notEmpty().withMessage("name is required")],
-  // @ts-ignore
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      //errors exist
-      const errMessage = errors.array().map((e) => e.msg);
-      return res.status(404).json({ errors: errMessage });
-    }
-    next(); //to pass to the next middleware. If this is not added, the request will stop here only even if everything is as expected.
-  },
-  (req, res) => {
-    const { name } = req.body;
-    res.json({ message: `hello ${name}` });
-    // console.log(req);
-    // res.json({ message: "data received", data: req.body });
-  }
-);
+app.post("/api/v1/test", validateTest, (req, res) => {
+  const { name } = req.body;
+  res.json({ message: `hello ${name}` });
+});
 
 //middleware that defines the base URL for the router and also mentions the router that is going to handle all the requests coming to those routes
 app.use("/api/v1/jobs", jobRouter);
