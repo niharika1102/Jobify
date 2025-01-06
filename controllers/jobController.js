@@ -23,27 +23,21 @@ export const createJob = async (req, res) => {
 
 //get a job controller
 export const getJob = async (req, res) => {
-  const { id } = req.params;
-  const job = await Job.findById(id);
-  if (!job) throw new NotFoundError(`No job found with ID ${id}`);
+  const job = await Job.findById(req.params.id);
   res.status(StatusCodes.OK).json({ job });
 };
 
 //edit a job controller
 export const updateJob = async (req, res) => {
-  const { id } = req.params;
   //new: true returns the new job to us after updating. By default, the job returned is the one before the update.
-  const updatedJob = await Job.findByIdAndUpdate(id, req.body, {
+  const updatedJob = await Job.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
-  if (!updatedJob) throw new NotFoundError(`No job found with ID ${id}`);
   res.status(StatusCodes.OK).json({ message: "Job updated", job: updatedJob });
 };
 
 //delete a job controller
 export const deleteJob = async (req, res) => {
-  const { id } = req.params;
-  const removedJob = await Job.findByIdAndRemove(id);
-  if (!removedJob) throw new NotFoundError(`No job found with ID ${id}`);
+  const removedJob = await Job.findByIdAndRemove(req.params.id);
   return res.status(StatusCodes.OK).json({ message: "Job deleted" });
 };
