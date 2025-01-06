@@ -5,6 +5,7 @@ import {
   UnauthenticatedError,
   UnauthorizedError,
 } from "../errors/customErrors.js";
+import { createJWT } from "../utils/tokenUtils.js";
 
 export const register = async (req, res) => {
   const isFirstAccount = (await User.countDocuments()) === 0; //we count the number of users already created. If it is 0, i.e., this account is the first account, then we automatically set it admin. Else, it is user
@@ -26,5 +27,7 @@ export const login = async (req, res) => {
     user && (await comparePassword(req.body.password, user.password)); //first parameter is the password used by the user to login in the current session and the second parameter is the password used by the user to register(the one that has been hashed and stored in the database).
   if (!isValidUser) throw new UnauthenticatedError("Invalid credentials");
 
-  res.send("Logged in");
+  const token = createJWT({ userId: user._id, role: user.role });
+
+  res.json({ token });
 };
