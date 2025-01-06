@@ -8,7 +8,6 @@ import mongoose from "mongoose";
 
 //middleware imports
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
-import { validateTest } from "./middleware/validationMiddleware.js";
 
 //custom imports
 import jobRouter from "./routes/jobRouter.js"; //routers
@@ -23,11 +22,6 @@ if (process.env.NODE_ENV === "development") {
 
 app.get("/", (req, res) => {
   res.send("Hello hooman");
-});
-
-app.post("/api/v1/test", validateTest, (req, res) => {
-  const { name } = req.body;
-  res.json({ message: `hello ${name}` });
 });
 
 //middleware that defines the base URL for the router and also mentions the router that is going to handle all the requests coming to those routes
