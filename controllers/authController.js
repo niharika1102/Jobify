@@ -29,5 +29,13 @@ export const login = async (req, res) => {
 
   const token = createJWT({ userId: user._id, role: user.role });
 
-  res.json({ token });
+  //http only cookie setup
+  const oneDay = 1000 * 60 * 60 * 24; //day in milliseconds
+  res.cookie("token", token, {
+    httpOnly: true, //can only be transmitted by https
+    expires: new Date(Date.now() + oneDay), //expires in 1 day
+    secure: process.env.NODE_ENV === "production", //secure transmits the cookie in https. But, in development, we work in http. So, we activate this property only in production
+  });
+
+  res.status(StatusCodes.OK).json({ message: "User logged in" });
 };
