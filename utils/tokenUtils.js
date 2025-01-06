@@ -2,8 +2,9 @@ import jwt from "jsonwebtoken";
 
 //jwt is used to transmit the data back and forth smoothly
 export const createJWT = (payload) => {
-  const token = jwt.sign(payload, "secret", {
-    expiresIn: "1d",
+  // @ts-ignore
+  const token = jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
   });
   return token;
 };
