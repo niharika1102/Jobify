@@ -14,6 +14,7 @@ import { authenticateUser } from "./middleware/authMiddleware.js";
 //custom imports
 import jobRouter from "./routes/jobRouter.js"; //routers
 import authRouter from "./routes/authRouter.js";
+import userRouter from "./routes/userRouter.js";
 
 const app = express();
 app.use(express.json()); //middleware setup
@@ -31,6 +32,7 @@ app.get("/", (req, res) => {
 //middleware that defines the base URL for the router and also mentions the router that is going to handle all the requests coming to those routes
 app.use("/api/v1/jobs", authenticateUser, jobRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/users", authenticateUser, userRouter);
 
 //Not found middleware - used when the user is trying to access a route that is not available
 app.use("*", (req, res) => {
