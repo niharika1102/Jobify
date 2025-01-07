@@ -55,9 +55,7 @@ export const validateIdParam = withValidationErrors([
     const isOwner = req.user.userId === job.createdBy.toString();
 
     if (!isAdmin && !isOwner) {
-      throw new UnauthorizedError(
-        "Not authorized to access this router"
-      );
+      throw new UnauthorizedError("Not authorized to access this router");
     }
   }),
 ]);
@@ -91,4 +89,21 @@ export const validateLoginInput = withValidationErrors([
     .isEmail()
     .withMessage("Invalid Email ID Format"),
   body("password").notEmpty().withMessage("Password is required"),
+]);
+
+export const validateUpdateUserInput = withValidationErrors([
+  body("name").notEmpty().withMessage("Name is required"),
+  body("email")
+    .notEmpty()
+    .withMessage("Email ID is required")
+    .isEmail()
+    .withMessage("Invalid Email ID format")
+    .custom(async (email, { req }) => {
+      const user = await User.findOne({ email });
+      if (user && user._id.toString() !== req.user.userId) {
+        throw new Error("Email already exists");
+      }
+    }),
+  body("location").notEmpty().withMessage("Location is required"),
+  body("lastName").notEmpty().withMessage("Last name is required"),
 ]);
