@@ -29,6 +29,11 @@ app.get("/", (req, res) => {
   res.send("Hello hooman");
 });
 
+//dummy route
+app.get("/api/v1/test", (req, res) => {
+  res.json({ message: "Test route" });
+});
+
 //middleware that defines the base URL for the router and also mentions the router that is going to handle all the requests coming to those routes
 app.use("/api/v1/jobs", authenticateUser, jobRouter);
 app.use("/api/v1/auth", authRouter);
