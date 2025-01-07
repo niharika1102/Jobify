@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 
 //middleware imports
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
+import { authenticateUser } from "./middleware/authMiddleware.js";
 
 //custom imports
 import jobRouter from "./routes/jobRouter.js"; //routers
@@ -26,7 +27,7 @@ app.get("/", (req, res) => {
 });
 
 //middleware that defines the base URL for the router and also mentions the router that is going to handle all the requests coming to those routes
-app.use("/api/v1/jobs", jobRouter);
+app.use("/api/v1/jobs", authenticateUser, jobRouter);
 app.use("/api/v1/auth", authRouter);
 
 //Not found middleware - used when the user is trying to access a route that is not available
