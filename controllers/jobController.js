@@ -11,14 +11,13 @@ let jobs = [
 
 //get all jobs controller
 export const getAllJobs = async (req, res) => {
-  console.log(req.user);
-  
-  const jobs = await Job.find({});
+  const jobs = await Job.find({ createdBy: req.user.userId }); //to find the jobs that are created by the specific user only
   res.status(StatusCodes.OK).json({ jobs }); //adding a status is not complusory, but it is a good practice
 };
 
 //create a job controller - we create the job in the schema using the 2nd line of the function
 export const createJob = async (req, res) => {
+  req.body.createdBy = req.user.userId; //to assign the current user Id to a specified user
   const job = await Job.create(req.body); //req.body has all the values that we need to create a job like the company and the position. So, we can skip the destructing part
   res.status(StatusCodes.CREATED).json({ job });
 };
