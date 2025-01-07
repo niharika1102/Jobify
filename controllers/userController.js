@@ -11,12 +11,17 @@ export const getCurrentUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ user: userWithoutPassword });
 };
 
+//admin route
 export const getApplicationStats = async (req, res) => {
-  res.status(StatusCodes.OK).json({ message: "Get application stats" });
+  //counting the number of users registered and the number of jobs created
+  const users = await User.countDocuments();
+  const jobs = await Job.countDocuments();
+
+  res.status(StatusCodes.OK).json({ users, jobs });
 };
 
 export const updateUser = async (req, res) => {
-  const obj = { ...req.body };
+  const obj = { ...req.body }; //to delete the password from the user object
   delete obj.password;
   console.log(obj);
   const updatedUser = await User.findByIdAndUpdate(req.user.userId, req.body); //first parameter is the ID of the user to be updated and the second parameter is the values to be updated. They will be accessed from the req.body.
