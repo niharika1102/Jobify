@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 
 //Traditionally, backend and frontend are located on different servers when in development. Like, here frontend is on 5173 and backend is on 5100 server.
@@ -12,6 +13,7 @@ fetch("/api/v1/test")
   .then((res) => res.json())
   .then((data) => console.log(data));
 
+// @ts-ignore
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <App />
