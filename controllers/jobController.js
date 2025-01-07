@@ -11,6 +11,8 @@ let jobs = [
 
 //get all jobs controller
 export const getAllJobs = async (req, res) => {
+  console.log(req.user);
+  
   const jobs = await Job.find({});
   res.status(StatusCodes.OK).json({ jobs }); //adding a status is not complusory, but it is a good practice
 };

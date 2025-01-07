@@ -8,3 +8,10 @@ export const createJWT = (payload) => {
   });
   return token;
 };
+
+//token is verifed using the secret key that we used to create it
+export const verifyJWT = (token) => {
+  // @ts-ignore
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  return decoded;
+};
