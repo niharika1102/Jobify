@@ -19,10 +19,7 @@ const UserSchema = new Schema({
     enum: ["User", "Admin"],
     default: "User",
   },
-  createdBy: {
-    type: mongoose.Types.ObjectId,
-    ref: "User",
-  },
+
 });
 
 export default mongoose.model("User", UserSchema);
