@@ -5,6 +5,7 @@ dotenv.config();
 import express from "express";
 import morgan from "morgan"; //provides logs of our requests. it is a middleware
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 
 //middleware imports
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
@@ -16,6 +17,7 @@ import authRouter from "./routes/authRouter.js";
 
 const app = express();
 app.use(express.json()); //middleware setup
+app.use(cookieParser()); //access and verify cookies
 
 //hides logs in production
 if (process.env.NODE_ENV === "development") {
