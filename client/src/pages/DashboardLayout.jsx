@@ -5,25 +5,28 @@ import { Outlet, redirect, useLoaderData } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Dashboard";
 import { BigSidebar, Navbar, SmallSidebar } from "../components";
 import { checkDefaultTheme } from "../App";
+import customFetch from "../utils/customFetch";
 
 //setting up a context to pass values to components without passing it through the entire component tree
 // @ts-ignore
 const DashboardContext = createContext();
 
 //setting up loader - to fetch the values before the component is rendered
-export const loader = () => {
-  return "hello hooman";
+export const loader = async () => {
+  //we take the data from the get request made to users/current-user and return the data. In case of any issues, we logout the user from the website by redirecting them to the base route ("/").
+  try {
+    const { data } = await customFetch.get("/users/current-user");
+    return data;
+  } catch (error) {
+    return redirect("/");
+  }
 };
 
 const DashboardLayout = () => {
-  //global values - temp (just for testing)
-  const user = { name: "john" }; //name of user for profile
+  // @ts-ignore
+  const {user} = useLoaderData();  //user info for profile
   const [showSidebar, setShowSidebar] = useState(false); //to show or hide sidebar
-  const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme); //to toggle betwenn light and dark theme
-
-  const data = useLoaderData();
-  console.log(data);
-  
+  const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme); //to toggle betwenn light and dark theme  
 
   //function to toggle dark theme
   const toggleDarkTheme = () => {
@@ -62,7 +65,7 @@ const DashboardLayout = () => {
           <div>
             <Navbar />
             <div className="dashboard-page">
-              <Outlet />
+              <Outlet context={{user}}/>
             </div>
           </div>
         </main>
