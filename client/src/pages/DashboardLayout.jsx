@@ -1,11 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 import React, { createContext, useContext, useState } from "react";
-import { Outlet, redirect, useLoaderData } from "react-router-dom";
+import { Outlet, redirect, useLoaderData, useNavigate } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Dashboard";
 import { BigSidebar, Navbar, SmallSidebar } from "../components";
 import { checkDefaultTheme } from "../App";
 import customFetch from "../utils/customFetch";
+import { toast } from "react-toastify";
 
 //setting up a context to pass values to components without passing it through the entire component tree
 // @ts-ignore
@@ -24,9 +25,11 @@ export const loader = async () => {
 
 const DashboardLayout = () => {
   // @ts-ignore
-  const {user} = useLoaderData();  //user info for profile
+  const { user } = useLoaderData(); //user info for profile
   const [showSidebar, setShowSidebar] = useState(false); //to show or hide sidebar
-  const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme); //to toggle betwenn light and dark theme  
+  const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme); //to toggle betwenn light and dark theme
+
+  const navigate = useNavigate();
 
   //function to toggle dark theme
   const toggleDarkTheme = () => {
@@ -44,7 +47,9 @@ const DashboardLayout = () => {
 
   //function to logout user
   const logoutUser = async () => {
-    console.log("logout user");
+    navigate("/"); //navigate to base route
+    await customFetch.get("/auth/logout"); //make request to logout route
+    toast.success("User logged out successfully");
   };
 
   return (
@@ -65,7 +70,7 @@ const DashboardLayout = () => {
           <div>
             <Navbar />
             <div className="dashboard-page">
-              <Outlet context={{user}}/>
+              <Outlet context={{ user }} />
             </div>
           </div>
         </main>
