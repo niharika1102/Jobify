@@ -12,8 +12,10 @@ import {
   AllJobs,
   Stats,
   Profile,
-  Admin
+  Admin,
 } from "./pages"; //using named imports from index file
+
+import { action as registerAction } from "./pages/Register";
 
 export const checkDefaultTheme = () => {
   //to use the preferred theme value from the local storage
@@ -40,6 +42,7 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Register />,
+        action: registerAction,
       },
       {
         path: "login",
@@ -52,25 +55,25 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <AllJobs/>
+            element: <AllJobs />,
           },
           {
-            path: 'add-job',
-            element: <AddJob/>
+            path: "add-job",
+            element: <AddJob />,
           },
           {
-            path: 'stats',
-            element: <Stats/>
+            path: "stats",
+            element: <Stats />,
           },
           {
-            path: 'profile',
-            element: <Profile/>
+            path: "profile",
+            element: <Profile />,
           },
           {
-            path: 'admin',
-            element: <Admin/>
+            path: "admin",
+            element: <Admin />,
           },
-        ]
+        ],
       },
     ],
   },
