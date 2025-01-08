@@ -62,7 +62,6 @@ const Register = () => {
         {/*the disbaled property is set to isSubmitting. This means when the form will be in the submitting state, the button will be disabled.*/}
         <button type="submit" className="btn btn-block" disabled={isSubmitting}>
           {isSubmitting ? "...Submitting" : "Submit"}
-          Register
         </button>
         <p>
           Already a member?
