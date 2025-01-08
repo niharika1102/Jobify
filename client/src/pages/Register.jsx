@@ -4,6 +4,7 @@ import { Link, Form, redirect, useNavigation } from "react-router-dom";
 import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
 import { FormRow, Logo } from "../components";
 import customFetch from "../utils/customFetch";
+import { toast } from "react-toastify"; //to send notifications
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const action = async ({ request }) => {
@@ -11,15 +12,16 @@ export const action = async ({ request }) => {
   const data = Object.fromEntries(formData);
   try {
     await customFetch.post("/auth/register", data); //this line of code tells us the type of request and its URL. The data parameter is the data that we need to send to the backend server. So, this data is stored in the database when the request is made.
+    toast.success("You are registered successfully");
     return redirect("/login"); //returning a value is compulsory. Without that, an error will be thrown.
   } catch (error) {
+    toast.error(error.response.data.message);
     return error;
   }
 };
 
 const Register = () => {
   const navigation = useNavigation();
-  console.log(navigation);
   const isSubmitting = navigation.state === "submitting"; //checking the state of submit button
 
   return (
@@ -57,7 +59,7 @@ const Register = () => {
           labelText="Password"
           defaultValue="johndoe123"
         />
-          {/*the disbaled property is set to isSubmitting. This means when the form will be in the submitting state, the button will be disabled.*/}
+        {/*the disbaled property is set to isSubmitting. This means when the form will be in the submitting state, the button will be disabled.*/}
         <button type="submit" className="btn btn-block" disabled={isSubmitting}>
           Register
         </button>
