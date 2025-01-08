@@ -3,10 +3,17 @@ import React from "react";
 import { Link, Form, redirect, useNavigation } from "react-router-dom";
 import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
 import { FormRow, Logo } from "../components";
+import customFetch from "../utils/customFetch";
 
-export const action = async (data) => {
-  console.log(data);
-  return null; //returning a value is compulsory. Without that, an error will be thrown.
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  try {
+    await customFetch.post("/auth/register", data); //this line of code tells us the type of request and its URL. The data parameter is the data that we need to send to the backend server. So, this data is stored in the database when the request is made.
+    return redirect("/login"); //returning a value is compulsory. Without that, an error will be thrown.
+  } catch (error) {
+    return error;
+  }
 };
 
 const Register = () => {
@@ -23,7 +30,7 @@ const Register = () => {
         />
         <FormRow
           type="text"
-          name="lastname"
+          name="lastName"
           labelText="Last Name"
           defaultValue="Doe"
         />
