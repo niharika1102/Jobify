@@ -1,6 +1,7 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 import React, { createContext, useContext, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, redirect, useLoaderData } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Dashboard";
 import { BigSidebar, Navbar, SmallSidebar } from "../components";
 import { checkDefaultTheme } from "../App";
@@ -9,11 +10,20 @@ import { checkDefaultTheme } from "../App";
 // @ts-ignore
 const DashboardContext = createContext();
 
+//setting up loader - to fetch the values before the component is rendered
+export const loader = () => {
+  return "hello hooman";
+};
+
 const DashboardLayout = () => {
   //global values - temp (just for testing)
   const user = { name: "john" }; //name of user for profile
   const [showSidebar, setShowSidebar] = useState(false); //to show or hide sidebar
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme); //to toggle betwenn light and dark theme
+
+  const data = useLoaderData();
+  console.log(data);
+  
 
   //function to toggle dark theme
   const toggleDarkTheme = () => {
