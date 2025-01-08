@@ -5,6 +5,7 @@ import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
 import { FormRow, Logo } from "../components";
 import customFetch from "../utils/customFetch";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
@@ -17,6 +18,10 @@ export const action = async ({ request }) => {
 };
 
 const Register = () => {
+  const navigation = useNavigation();
+  console.log(navigation);
+  const isSubmitting = navigation.state === "submitting"; //checking the state of submit button
+
   return (
     <Wrapper>
       <Form method="post" className="form">
@@ -50,9 +55,10 @@ const Register = () => {
           type="password"
           name="password"
           labelText="Password"
-          defaultValue="johndoe"
+          defaultValue="johndoe123"
         />
-        <button type="submit" className="btn btn-block">
+          {/*the disbaled property is set to isSubmitting. This means when the form will be in the submitting state, the button will be disabled.*/}
+        <button type="submit" className="btn btn-block" disabled={isSubmitting}>
           Register
         </button>
         <p>

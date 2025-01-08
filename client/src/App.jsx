@@ -17,6 +17,7 @@ import {
 
 import { action as registerAction } from "./pages/Register";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const checkDefaultTheme = () => {
   //to use the preferred theme value from the local storage
   const isDarkTheme = localStorage.getItem("darkTheme") === "true";
