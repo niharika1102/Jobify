@@ -1,12 +1,27 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 import React from "react";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
-import { Form, useNavigation, useOutletContext } from "react-router-dom";
+import { Form, useNavigation, useOutletContext, redirect } from "react-router-dom";
 import { FormRow } from "../components";
 import { JOB_TYPE, JOB_STATUS } from "../../../utils/constants";
 import FormRowSelect from "../components/FormRowSelect";
+import { toast } from "react-toastify";
+import customFetch from "../utils/customFetch";
 
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
 
+  try {
+    await customFetch.post("/jobs", data);
+    toast.success("Job created successfully");
+    return redirect("/dashboard");
+  } catch (error) {
+    toast.error(error.response.data.message);
+    return error;
+  }
+};
 const AddJob = () => {
   // @ts-ignore
   const { user } = useOutletContext();
@@ -29,7 +44,7 @@ const AddJob = () => {
           <FormRowSelect
             labelText="job status"
             name="jobStatus"
-            defaultValue={JOB_STATUS.PENDING}
+            defaultValue={JOB_STATUS.INTERVIEW}
             list={Object.values(JOB_STATUS)}
           />
           <FormRowSelect
