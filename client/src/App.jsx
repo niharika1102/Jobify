@@ -13,6 +13,7 @@ import {
   Stats,
   Profile,
   Admin,
+  EditJob
 } from "./pages"; //using named imports from index file
 
 import { action as registerAction } from "./pages/Register";
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
           {
             path: "admin",
             element: <Admin />,
+          },
+          {
+            path: "edit-job/:id",
+            element: <EditJob />,
           },
         ],
       },
