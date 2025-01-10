@@ -7,6 +7,11 @@ import morgan from "morgan"; //provides logs of our requests. it is a middleware
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
+//public
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+import path from "path";
+
 //middleware imports
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
 import { authenticateUser } from "./middleware/authMiddleware.js";
@@ -24,6 +29,9 @@ app.use(cookieParser()); //access and verify cookies
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+app.use(express.static(path.resolve(__dirname, "./public")));
 
 app.get("/", (req, res) => {
   res.send("Hello hooman");
