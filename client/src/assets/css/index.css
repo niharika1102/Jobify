@@ -256,12 +256,12 @@ button:disabled {
   background: var(--background-color);
   border: 1px solid var(--grey-300);
   color: var(--text-color);
-  text-transform: capitalize;
 }
 .form-input,
 .form-select,
 .form-btn {
   height: 35px;
+  text-transform: capitalize;
 }
 .form-row {
   margin-bottom: 1rem;
