@@ -17,15 +17,21 @@ export const loader = async () => {
   }
 };
 
+//context creation
+// @ts-ignore
+const AllJobsContext = createContext();
+
 const AllJobs = () => {
   // @ts-ignore
   const { data } = useLoaderData();
   return (
-    <>
+    <AllJobsContext.Provider value={{data}}>
       <SearchContainer />
       <JobsContainer />
-    </>
+    </AllJobsContext.Provider>
   );
 };
+
+export const useAllJobsContext = () => useContext(AllJobsContext);
 
 export default AllJobs;
