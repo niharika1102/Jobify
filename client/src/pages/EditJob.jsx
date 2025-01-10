@@ -19,16 +19,62 @@ export const loader = async ({ params }) => {
   }
 };
 
-export const action = async () => {
-  return null;
+export const action = async ({ request, params }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+
+  try {
+    await customFetch.patch(`/jobs/${params.id}`, data);
+    toast.success("Job updated successfully");
+    return redirect("/dashboard");
+  } catch (error) {
+    toast.error(error.response.data.message);
+    return error;
+  }
 };
 
 const EditJob = () => {
-  const params = useParams();
-  console.log(params);
   // @ts-ignore
   const { job } = useLoaderData();
-  return <div>EditJob</div>;
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
+
+  return (
+    <Wrapper>
+      <Form method="post" className="form">
+        <h4 className="form-title">Edit Job</h4>
+        <div className="form-center">
+          <FormRow type="text" name="position" defaultValue={job.position} />
+          <FormRow type="text" name="company" defaultValue={job.company} />
+          <FormRow
+            type="text"
+            name="jobLocation"
+            labelText="Job Location"
+            defaultValue={job.jobLocation}
+          />
+          <FormRowSelect
+            name="jobStatus"
+            labelText="Job Status"
+            defaultValue={job.jobStatus}
+            list={Object.values(JOB_STATUS)}
+          />
+          <FormRowSelect
+            name="jobType"
+            labelText="Job Type"
+            defaultValue={job.jobType}
+            list={Object.values(JOB_TYPE)}
+          />
+          <button
+            type="submit"
+            className="btn btn-block form-btn"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "...Submitting" : "Submit"}
+          </button>
+        </div>
+      </Form>
+    </Wrapper>
+  );
 };
 
 export default EditJob;
