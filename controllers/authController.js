@@ -9,7 +9,7 @@ import { createJWT } from "../utils/tokenUtils.js";
 
 export const register = async (req, res) => {
   const isFirstAccount = (await User.countDocuments()) === 0; //we count the number of users already created. If it is 0, i.e., this account is the first account, then we automatically set it admin. Else, it is user
-  req.body.role = isFirstAccount ? "Admin" : "User";
+  req.body.role = isFirstAccount ? "admin" : "user";
   const hashedPassword = await hashPassword(req.body.password);
   req.body.password = hashedPassword;
 
