@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { FormRow } from "../components";
@@ -7,7 +8,27 @@ import { useNavigation, Form } from "react-router-dom";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
 
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+
+  const file = formData.get("avatar");
+  if (file.size > 500000) {
+    toast.error("Image size is too large");
+    return null;
+  }
+
+  try {
+    await customFetch.patch("/users/update-user", formData);
+    toast.success("Profile updated successfully");
+  } catch (error) {
+    toast.error(error.response.data.message);
+  }
+
+  return null;
+};
+
 const Profile = () => {
+  // @ts-ignore
   const { user } = useOutletContext();
   const { name, lastName, email, location } = user;
 
@@ -40,7 +61,11 @@ const Profile = () => {
           />
           <FormRow type="email" name="email" defaultValue={email} />
           <FormRow type="text" name="location" defaultValue={location} />
-          <button type="submit" className="btn btn-block form-btn" disabled={isSubmitting}>
+          <button
+            type="submit"
+            className="btn btn-block form-btn"
+            disabled={isSubmitting}
+          >
             {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </div>
