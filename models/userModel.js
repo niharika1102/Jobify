@@ -19,6 +19,8 @@ const UserSchema = new Schema({
     enum: ["user", "admin"],
     default: "user",
   },
+  avatar: String,
+  avatarPublicId: String,
 });
 
 //We dont want to show the password when we return the current user info. So, we create a method to do so. We convert the current user to a javascript object and then we delete the password property from it. Then, we return the modified object.
