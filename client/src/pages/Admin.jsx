@@ -1,8 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { BsCalendarCheckFill } from "react-icons/bs";
-import { FaSuitcaseRolling } from "react-icons/fa";
+import { FaSuitcaseRolling, FaCalendarCheck } from "react-icons/fa";
 import { useLoaderData, redirect } from "react-router-dom";
 import customFetch from "../utils/customFetch";
 import Wrapper from "../assets/wrappers/StatsContainer";
@@ -36,7 +35,7 @@ const Admin = () => {
         count={jobs}
         bcg="#e0e8f9"
         color="#647acb"
-        icon={<BsCalendarCheckFill/>}
+        icon={<FaCalendarCheck/>}
       />
     </Wrapper>
   );
