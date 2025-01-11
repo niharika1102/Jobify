@@ -3,7 +3,7 @@
 import React from "react";
 import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
 import { FormRow, Logo, SubmitBtn } from "../components";
-import { Link, Form, redirect } from "react-router-dom";
+import { Link, Form, redirect, useNavigate } from "react-router-dom";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
 
@@ -13,14 +13,31 @@ export const action = async ({ request }) => {
   try {
     await customFetch.post("/auth/login", data);
     toast.success("User logged in successfully");
-    return redirect("/dashboard")
+    return redirect("/dashboard");
   } catch (error) {
     toast.error(error.response.data.message);
     return error;
   }
-}
+};
 
 const Login = () => {
+  //Login dummy user for test drive
+  const navigate = useNavigate();
+  const loginDemoUser = async () => {
+    const demoData = {
+      email: "johndoe@gmail.com",
+      password: "john.doe@123",
+    };
+
+    try {
+      await customFetch.post("/auth/login", demoData);
+      toast.success("Take a test drive");
+      navigate("/dashboard");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
   return (
     <Wrapper>
       <Form className="form" method="post">
@@ -38,8 +55,10 @@ const Login = () => {
           labelText="Password"
           defaultValue="johndoe123"
         />
-        <SubmitBtn/>
-        <button className="btn btn-block">Explore the App</button>
+        <SubmitBtn />
+        <button className="btn btn-block" onClick={loginDemoUser}>
+          Explore the App
+        </button>
         <p>
           Not a member yet?
           <Link to="/register" className="member-btn">
