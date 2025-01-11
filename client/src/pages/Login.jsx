@@ -25,8 +25,8 @@ const Login = () => {
   const navigate = useNavigate();
   const loginDemoUser = async () => {
     const demoData = {
-      email: "johndoe@gmail.com",
-      password: "john.doe@123",
+      email: "peter@gmail.com",
+      password: "peter.smith@1102",
     };
 
     try {
@@ -56,7 +56,7 @@ const Login = () => {
           defaultValue="johndoe123"
         />
         <SubmitBtn />
-        <button className="btn btn-block" onClick={loginDemoUser}>
+        <button type="button" className="btn btn-block" onClick={loginDemoUser}>
           Explore the App
         </button>
         <p>
