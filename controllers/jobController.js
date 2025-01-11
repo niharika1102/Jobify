@@ -37,28 +37,35 @@ export const deleteJob = async (req, res) => {
   return res.status(StatusCodes.OK).json({ message: "Job deleted" });
 };
 
-//dummy stats
+//show stats functionality
 export const showStats = async (req, res) => {
+  //aggregate pipeline is used to sort and group the mongo data. There are various stages to it.
+  let stats = await Job.aggregate([
+    //stage 1: match the jobs based to which user has created them
+    { $match: { createdBy: new mongoose.Types.ObjectId(req.user.userId) } },
+    //stage 2: grouping the jobs by their status and count each group
+    { $group: { _id: "$jobStatus", count: { $sum: 1 } } },
+  ]);
+
+  //converting the array into object using reduce
+  stats = stats.reduce((acc, curr) => {
+    //acc is what we return from the callback function and curr is the current iteration
+    const { _id: title, count } = curr;
+    acc[title] = count;
+    return acc;
+  }, {});
+
   const defaultStats = {
-    pending: 22,
-    interview: 11,
-    declined: 4,
+    // @ts-ignore
+    pending: stats.pending || 0,
+    // @ts-ignore
+    interview: stats.interview || 0,
+    // @ts-ignore
+    declined: stats.declined || 0,
   };
 
-  let monthlyApplications = [
-    {
-      date: "May 23",
-      count: 12,
-    },
-    {
-      date: "Jun 23",
-      count: 9,
-    },
-    {
-      date: "Jul 23",
-      count: 3,
-    },
-  ];
+  console.log(stats);
+  
 
-  res.status(StatusCodes.OK).json({ defaultStats, monthlyApplications });
+  res.status(StatusCodes.OK).json({ defaultStats});
 };
