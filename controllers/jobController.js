@@ -1,13 +1,7 @@
-import { nanoid } from "nanoid";
 import Job from "../models/jobModel.js";
 import { StatusCodes } from "http-status-codes";
-import { NotFoundError } from "../errors/customErrors.js";
-
-//local data for testing
-let jobs = [
-  { id: nanoid(), company: "cognida.ai", position: "frontend developer" },
-  { id: nanoid(), company: "microsoft", position: "product manager" },
-];
+import mongoose from "mongoose";
+import day from "dayjs";
 
 //get all jobs controller
 export const getAllJobs = async (req, res) => {
@@ -41,4 +35,30 @@ export const updateJob = async (req, res) => {
 export const deleteJob = async (req, res) => {
   const removedJob = await Job.findByIdAndRemove(req.params.id);
   return res.status(StatusCodes.OK).json({ message: "Job deleted" });
+};
+
+//dummy stats
+export const showStats = async (req, res) => {
+  const defaultStats = {
+    pending: 22,
+    interview: 11,
+    declined: 4,
+  };
+
+  let monthlyApplications = [
+    {
+      date: "May 23",
+      count: 12,
+    },
+    {
+      date: "Jun 23",
+      count: 9,
+    },
+    {
+      date: "Jul 23",
+      count: 3,
+    },
+  ];
+
+  res.status(StatusCodes.OK).json({ defaultStats, monthlyApplications });
 };
