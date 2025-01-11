@@ -15,12 +15,13 @@ export const loader = async (req, res) => {
 }
 
 const Stats = () => {
+  // @ts-ignore
   const { defaultStats, monthlyApplications } = useLoaderData();
 
   return (
     <>
       <StatsContainer defaultStats={defaultStats} />
-      {monthlyApplications.length > 0 && (
+      {monthlyApplications?.length > 0 && (
         <ChartsContainer data={monthlyApplications}/>
       )}
     </>
