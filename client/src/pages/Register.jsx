@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { Link, Form, redirect, useNavigation } from "react-router-dom";
+import { Link, Form, redirect } from "react-router-dom";
 import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
-import { FormRow, Logo } from "../components";
+import { FormRow, Logo, SubmitBtn } from "../components";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify"; //to send notifications
 
@@ -21,9 +21,6 @@ export const action = async ({ request }) => {
 };
 
 const Register = () => {
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting"; //checking the state of submit button
-
   return (
     <Wrapper>
       <Form method="post" className="form">
@@ -59,10 +56,7 @@ const Register = () => {
           labelText="Password"
           defaultValue="johndoe123"
         />
-        {/*the disbaled property is set to isSubmitting. This means when the form will be in the submitting state, the button will be disabled.*/}
-        <button type="submit" className="btn btn-block" disabled={isSubmitting}>
-          {isSubmitting ? "...Submitting" : "Submit"}
-        </button>
+        <SubmitBtn/>
         <p>
           Already a member?
           <Link to="/login" className="member-btn">

@@ -2,10 +2,9 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
-import { Form, useNavigation, useOutletContext, redirect } from "react-router-dom";
-import { FormRow } from "../components";
+import { Form, useOutletContext, redirect } from "react-router-dom";
+import { FormRow, SubmitBtn, FormRowSelect } from "../components";
 import { JOB_TYPE, JOB_STATUS } from "../../../utils/constants";
-import FormRowSelect from "../components/FormRowSelect";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 
@@ -25,8 +24,6 @@ export const action = async ({ request }) => {
 const AddJob = () => {
   // @ts-ignore
   const { user } = useOutletContext();
-  const navigate = useNavigation();
-  const isSubmitting = navigate.state === "submitting";
 
   return (
     <Wrapper>
@@ -53,13 +50,7 @@ const AddJob = () => {
             defaultValue={JOB_TYPE.FULL_TIME}
             list={Object.values(JOB_TYPE)}
           />
-          <button
-            type="submit"
-            className="btn btn-block form-btn"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Submitting..." : "Submit"}
-          </button>
+          <SubmitBtn formBtn/>
         </div>
       </Form>
     </Wrapper>
