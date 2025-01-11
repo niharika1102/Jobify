@@ -5,7 +5,7 @@ import day from "dayjs";
 
 //get all jobs controller
 export const getAllJobs = async (req, res) => {
-  const { search, jobStatus, jobType } = req.query;
+  const { search, jobStatus, jobType, sort } = req.query;
 
   const queryObject = {
     createdBy: req.user.userId,
@@ -18,7 +18,7 @@ export const getAllJobs = async (req, res) => {
     ];
   }
 
-  if (jobStatus && jobStatus !== 'all') {
+  if (jobStatus && jobStatus !== "all") {
     queryObject.jobStatus = jobStatus;
   }
 
@@ -26,7 +26,16 @@ export const getAllJobs = async (req, res) => {
     queryObject.jobType = jobType;
   }
 
-  const jobs = await Job.find(queryObject); //to find the jobs that are created by the specific user only
+  const sortOptions = {
+    newest: "-createdAt",
+    oldest: "createdAt",
+    "a-z": "position",
+    "z-a": "-position",
+  };
+
+  const sortKey = sortOptions[sort] || sortOptions.newest;
+
+  const jobs = await Job.find(queryObject).sort(sortKey);
   res.status(StatusCodes.OK).json({ jobs }); //adding a status is not complusory, but it is a good practice
 };
 
