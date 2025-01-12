@@ -8,10 +8,10 @@ import { useLoaderData } from "react-router-dom";
 import { useContext, createContext } from "react";
 
 export const loader = async ({ request }) => {
-  const params = Object.fromEntries([
-    ...new URL(request.url).searchParams.entries(),
-  ]);
   try {
+    const params = Object.fromEntries([
+      ...new URL(request.url).searchParams.entries(),
+    ]);
     const { data } = await customFetch.get("/jobs", {
       params,
     });
