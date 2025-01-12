@@ -26,10 +26,6 @@ const app = express();
 app.use(express.json()); //middleware setup
 app.use(cookieParser()); //access and verify cookies
 
-//hides logs in production
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
 
 //cloudinary setup
 // @ts-ignore
@@ -40,7 +36,11 @@ cloudinary.config({
 });
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use(express.static(path.resolve(__dirname, "./public")));
+//hides logs in production
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
+app.use(express.static(path.resolve(__dirname, "./client/dist")));
 
 app.get("/", (req, res) => {
   res.send("Hello hooman");
@@ -58,7 +58,7 @@ app.use("/api/v1/users", authenticateUser, userRouter);
 
 //to direct the users to the entry point i.e., index.html
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "./public", "./index.html"));
+  res.sendFile(path.resolve(__dirname, "./client/dist", "./index.html"));
 });
 
 //Not found middleware - used when the user is trying to access a route that is not available
