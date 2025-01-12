@@ -12,6 +12,18 @@ const SearchContainer = () => {
 
   const submit = useSubmit();
 
+  //to add delay to the form submission
+  const debounce = (onChange) => {
+    let timeout;
+    return (event) => {
+      const form = event.currentTarget.form;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        onChange(form);
+      }, 2000);
+    };
+  };
+
   return (
     <Wrapper>
       <Form className="form">
@@ -21,9 +33,9 @@ const SearchContainer = () => {
             type="search"
             name="search"
             defaultValue={search}
-            onChange={(event) => {
-              submit(event.currentTarget.form);
-            }}
+            onChange={debounce((form) => {
+              submit(form);
+            })}
           />
           <FormRowSelect
             labelText="job status"
