@@ -1,9 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 import React, { createContext, useContext, useState } from "react";
-import { Outlet, redirect, useLoaderData, useNavigate } from "react-router-dom";
+import { Outlet, redirect, useLoaderData, useNavigate, useNavigation } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Dashboard";
-import { BigSidebar, Navbar, SmallSidebar } from "../components";
+import { BigSidebar, Navbar, SmallSidebar, Loading } from "../components";
 import { checkDefaultTheme } from "../App";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
@@ -28,6 +28,9 @@ const DashboardLayout = () => {
   const { user } = useLoaderData(); //user info for profile
   const [showSidebar, setShowSidebar] = useState(false); //to show or hide sidebar
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme); //to toggle betwenn light and dark theme
+
+  const navigation = useNavigation();
+  const isPageLoading = navigation.state === 'loading';
 
   const navigate = useNavigate();
 
@@ -70,7 +73,7 @@ const DashboardLayout = () => {
           <div>
             <Navbar />
             <div className="dashboard-page">
-              <Outlet context={{ user }} />
+              {isPageLoading ? <Loading/> : <Outlet context={{ user }} />}
             </div>
           </div>
         </main>
