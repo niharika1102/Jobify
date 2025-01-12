@@ -8,8 +8,8 @@ import { useAllJobsContext } from "../pages/AllJobs";
 const PageBtnContainer = () => {
   const {
     data: { numOfPages, currentPage },
-    } = useAllJobsContext();
-    
+  } = useAllJobsContext();
+
   const navigate = useNavigate();
   const { search, pathname } = useLocation();
 
@@ -18,12 +18,80 @@ const PageBtnContainer = () => {
     return index + 1;
   });
 
-
   //changing the pages when clicked on
   const handlePageChange = (pageNum) => {
     const searchParams = new URLSearchParams(search);
     searchParams.set("page", pageNum);
     navigate(`${pathname}?${searchParams.toString()}`);
+  };
+
+  const addPageButton = ({ pageNum, activeClass }) => {
+    return (
+      <button
+        className={`btn page-btn ${activeClass && "active"}`}
+        key={pageNum}
+        onClick={() => handlePageChange(pageNum)}
+      >
+        {pageNum}
+      </button>
+    );
+  };
+
+  const renderPageButtons = () => {
+    const pageButtons = [];
+
+    //adding the page number for page1. We want to display it by default.
+    pageButtons.push(
+      addPageButton({ pageNum: 1, activeClass: currentPage === 1 })
+    );
+
+    //dots for all pages between first and the one before the current page
+    if (currentPage > 3) {
+      pageButtons.push(
+        <span className="page-btn dots" key="dots-1">
+          ....
+        </span>
+      );
+    }
+
+    //page before the current page
+    if (currentPage !== 1 && currentPage !== 2) {
+      pageButtons.push(
+        addPageButton({ pageNum: currentPage - 1, activeClass: false })
+      );
+    }
+
+    //current page button. It is displayed and carries the active class tag.
+    if (currentPage !== 1 && currentPage !== numOfPages) {
+      pageButtons.push(
+        addPageButton({ pageNum: currentPage, activeClass: true })
+      );
+    }
+
+    //page after the current page
+    if (currentPage !== numOfPages && currentPage !== numOfPages - 1) {
+      pageButtons.push(
+        addPageButton({ pageNum: currentPage + 1, activeClass: false })
+      );
+    }
+
+    //dots for pages between last page and one after the current page
+    if (currentPage < numOfPages - 2) {
+      pageButtons.push(
+        <span className="page-btn dots" key="dots+1">
+          ...
+        </span>
+      );
+    }
+
+    //adding page number for the last page. It is also displayed by default.
+    pageButtons.push(
+      addPageButton({
+        pageNum: numOfPages,
+        activeClass: currentPage === numOfPages,
+      })
+    );
+    return pageButtons;
   };
 
   return (
@@ -39,19 +107,7 @@ const PageBtnContainer = () => {
         <CgChevronDoubleLeft />
         prev
       </button>
-      <div className="btn-container">
-        {pages.map((pageNumber) => (
-          <button
-            className={`btn page-btn ${pageNumber === currentPage && "active"}`}
-            key={pageNumber}
-            onClick={() => {
-              handlePageChange(pageNumber);
-            }}
-          >
-            {pageNumber}
-          </button>
-        ))}
-      </div>
+      <div className="btn-container">{renderPageButtons()}</div>
       <button
         className="btn next-btn"
         onClick={() => {
