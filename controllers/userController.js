@@ -35,7 +35,7 @@ export const updateUser = async (req, res) => {
 
   const updatedUser = await User.findByIdAndUpdate(req.user.userId, newUser); //first parameter is the ID of the user to be updated and the second parameter is the values to be updated. They will be accessed from the req.body.
   //if the user already has an image uploaded and is trying to upload a new one, we remove the previous one from cloudinary
-  if (req.file && updatedUser?.avatarPublicId) {  //the second parameter is used to check if the user is uploading the image for the first time. 
+  if (req.file && updatedUser.avatarPublicId) {  //the second parameter is used to check if the user is uploading the image for the first time. 
     await cloudinary.v2.uploader.destroy(updatedUser.avatarPublicId)
   }
   
