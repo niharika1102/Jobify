@@ -56,6 +56,11 @@ app.use("/api/v1/jobs", authenticateUser, jobRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
 
+//to direct the users to the entry point i.e., index.html
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./public", "./index.html"));
+});
+
 //Not found middleware - used when the user is trying to access a route that is not available
 app.use("*", (req, res) => {
   res.status(404).json({ message: "Not found" });
