@@ -20,7 +20,7 @@ const SearchContainer = () => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
         onChange(form);
-      }, 2000);
+      }, 800);
     };
   };
 
