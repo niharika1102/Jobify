@@ -8,18 +8,34 @@ import { useAllJobsContext } from "../pages/AllJobs";
 const PageBtnContainer = () => {
   const {
     data: { numOfPages, currentPage },
-  } = useAllJobsContext();
+    } = useAllJobsContext();
+    
+  const navigate = useNavigate();
+  const { search, pathname } = useLocation();
 
   //constructing an array of pages
   const pages = Array.from({ length: numOfPages }, (_, index) => {
     return index + 1;
   });
 
-  console.log(pages);
+
+  //changing the pages when clicked on
+  const handlePageChange = (pageNum) => {
+    const searchParams = new URLSearchParams(search);
+    searchParams.set("page", pageNum);
+    navigate(`${pathname}?${searchParams.toString()}`);
+  };
 
   return (
     <Wrapper>
-      <button className="btn prev-btn">
+      <button
+        className="btn prev-btn"
+        onClick={() => {
+          let prevPage = currentPage - 1;
+          if (prevPage < 1) prevPage = numOfPages; //if the current page is 1, we dont want to go back to page 0. We will go back to the last page instead.
+          handlePageChange(prevPage);
+        }}
+      >
         <CgChevronDoubleLeft />
         prev
       </button>
@@ -28,12 +44,22 @@ const PageBtnContainer = () => {
           <button
             className={`btn page-btn ${pageNumber === currentPage && "active"}`}
             key={pageNumber}
+            onClick={() => {
+              handlePageChange(pageNumber);
+            }}
           >
             {pageNumber}
           </button>
         ))}
       </div>
-      <button className="btn next-btn">
+      <button
+        className="btn next-btn"
+        onClick={() => {
+          let nextPage = currentPage + 1;
+          if (nextPage > numOfPages) nextPage = 1;
+          handlePageChange(nextPage);
+        }}
+      >
         next
         <CgChevronDoubleRight />
       </button>
