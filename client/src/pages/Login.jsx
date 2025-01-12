@@ -47,13 +47,11 @@ const Login = () => {
           type="email"
           name="email"
           labelText="Email ID"
-          defaultValue="johndoe@gmail.com"
         />
         <FormRow
           type="password"
           name="password"
           labelText="Password"
-          defaultValue="johndoe123"
         />
         <SubmitBtn />
         <button type="button" className="btn btn-block" onClick={loginDemoUser}>
