@@ -29,7 +29,7 @@ const SearchContainer = () => {
             list={["all", ...Object.values(JOB_SORT_BY)]}
             defaultValue="newest"
           />
-          <Link to="/dashboard/all-jobs" className="btn form-btn delete-btn">
+          <Link to="/dashboard" className="btn form-btn delete-btn">
             Reset search values
           </Link>
           <SubmitBtn formBtn/>
