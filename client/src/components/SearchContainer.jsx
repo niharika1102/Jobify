@@ -42,26 +42,26 @@ const SearchContainer = () => {
             name="jobStatus"
             list={["all", ...Object.values(JOB_STATUS)]}
             defaultValue={jobStatus}
-            onChange={(event) => {
-              submit(event.currentTarget.form);
-            }}
+            onChange={debounce((form) => {
+              submit(form);
+            })}
           />
           <FormRowSelect
             labelText="job type"
             name="jobType"
             list={["all", ...Object.values(JOB_TYPE)]}
             defaultValue={jobType}
-            onChange={(event) => {
-              submit(event.currentTarget.form);
-            }}
+            onChange={debounce((form) => {
+              submit(form);
+            })}
           />
           <FormRowSelect
             name="sort"
             list={["all", ...Object.values(JOB_SORT_BY)]}
             defaultValue={sort}
-            onChange={(event) => {
-              submit(event.currentTarget.form);
-            }}
+            onChange={debounce((form) => {
+              submit(form);
+            })}
           />
           <Link to="/dashboard" className="btn form-btn delete-btn">
             Reset search values
