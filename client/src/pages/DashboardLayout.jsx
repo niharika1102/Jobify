@@ -67,6 +67,7 @@ const DashboardLayout = ({ queryClient }) => {
   const logoutUser = async () => {
     navigate("/"); //navigate to base route
     await customFetch.get("/auth/logout"); //make request to logout route
+    queryClient.invalidateQueries();
     toast.success("User logged out successfully");
   };
 
