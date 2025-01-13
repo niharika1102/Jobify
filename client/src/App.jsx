@@ -39,8 +39,15 @@ export const checkDefaultTheme = () => {
   document.body.classList.toggle("dark-theme", isDarkTheme);
   return isDarkTheme;
 };
-
 checkDefaultTheme();
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, //5 minutes stale time - means that data is fetched again from the server after 5 minutes
+    },
+  },
+}); 
 
 //setting up router
 const router = createBrowserRouter([
@@ -84,7 +91,7 @@ const router = createBrowserRouter([
           {
             path: "stats",
             element: <Stats />,
-            loader: statsLoader,
+            loader: statsLoader(queryClient),
             errorElement: <ErrorElement/>,
           },
           {
@@ -115,13 +122,6 @@ const router = createBrowserRouter([
 
 //returning the specified route based on the url asked for
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 5, //5 minutes stale time - means that data is fetched again from the server after 5 minutes
-    },
-  },
-});
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
