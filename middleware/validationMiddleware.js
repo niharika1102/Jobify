@@ -1,13 +1,13 @@
+import mongoose from "mongoose";
 import { body, validationResult, param } from "express-validator";
 import {
   BadRequestError,
   NotFoundError,
   UnauthorizedError,
 } from "../errors/customErrors.js";
-import { JOB_STATUS, JOB_TYPE } from "../utils/constants.js";
-import mongoose from "mongoose";
 import Job from "../models/jobModel.js";
 import User from "../models/userModel.js";
+import { JOB_STATUS, JOB_TYPE } from "../utils/constants.js";
 
 const withValidationErrors = (validateValues) => {
   return [

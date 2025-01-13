@@ -6,16 +6,15 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   Outlet,
   redirect,
-  useLoaderData,
   useNavigate,
   useNavigation,
 } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
 import Wrapper from "../assets/wrappers/Dashboard";
 import { BigSidebar, Navbar, SmallSidebar, Loading } from "../components";
 import { checkDefaultTheme } from "../App";
 import customFetch from "../utils/customFetch";
-import { toast } from "react-toastify";
-import { useQuery } from "@tanstack/react-query";
 
 //setting up a context to pass values to components without passing it through the entire component tree
 // @ts-ignore
@@ -82,7 +81,6 @@ const DashboardLayout = ({ queryClient }) => {
       if (error.response.status === 401) {
         setIsAuthError(true);
       }
-
       return Promise.reject(error);
     }
   );

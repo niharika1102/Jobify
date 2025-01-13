@@ -3,7 +3,8 @@ import { JOB_STATUS, JOB_TYPE } from "../utils/constants.js";
 
 const { Schema } = mongoose;
 
-const JobSchema = new Schema({
+const JobSchema = new Schema(
+  {
     company: String,
     position: String,
     jobStatus: {
@@ -18,14 +19,14 @@ const JobSchema = new Schema({
     },
     jobLocation: {
       type: String,
-      default: 'My City',
+      default: "My City",
     },
-  createdBy: {
-    type: mongoose.Types.ObjectId,
-    ref: "User"
-    }
+    createdBy: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+    },
   },
   { timestamps: true }
-)
+);
 
 export default mongoose.model("Job", JobSchema);

@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { useDashboardContext } from "../pages/DashboardLayout";
 import links from "../utils/links";
-import { NavLink } from "react-router-dom";
 
 const Navlinks = ({ isBigSidebar }) => {
   const { toggleSidebar, user } = useDashboardContext();
@@ -12,17 +13,15 @@ const Navlinks = ({ isBigSidebar }) => {
       {links.map((link) => {
         const { path, text, icon } = link;
         const { role } = user;
-        if (path === 'admin' && role !== 'admin') return;
+        if (path === "admin" && role !== "admin") return;
         return (
           <NavLink
             to={path}
             key={text}
             className="nav-link"
-            onClick={isBigSidebar ? null : toggleSidebar}        
+            onClick={isBigSidebar ? null : toggleSidebar}
             end
-          >
-            {" "}
-            {/*"end" is to remove the active class from the index element of the route. Here, all jobs*/}
+          > {/*"end" is to remove the active class from the index element of the route. Here, all jobs*/}
             <span className="icon">{icon}</span>
             {text}
           </NavLink>

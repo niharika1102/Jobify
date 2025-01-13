@@ -1,10 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { StatsContainer, ChartsContainer } from "../components";
 import customFetch from "../utils/customFetch";
-import { useLoaderData } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 
 const statsQuery = {
   queryKey: ["stats"], //identifier

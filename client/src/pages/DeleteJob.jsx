@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
 import { redirect } from "react-router-dom";
+import customFetch from "../utils/customFetch";
 
 export const action =
   (queryClient) =>

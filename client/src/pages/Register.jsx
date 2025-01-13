@@ -1,10 +1,11 @@
+// @ts-nocheck
 /* eslint-disable no-unused-vars */
 import React from "react";
+import { toast } from "react-toastify";
 import { Link, Form, redirect } from "react-router-dom";
-import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
 import { FormRow, Logo, SubmitBtn } from "../components";
 import customFetch from "../utils/customFetch";
-import { toast } from "react-toastify"; //to send notifications
+import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const action = async ({ request }) => {
@@ -26,32 +27,12 @@ const Register = () => {
       <Form method="post" className="form">
         <Logo />
         <h4>Register</h4>
-        <FormRow
-          type="text"
-          name="name"
-          labelText="First Name"
-        />
-        <FormRow
-          type="text"
-          name="lastName"
-          labelText="Last Name"
-        />
-        <FormRow
-          type="text"
-          name="location"
-          labelText="Location"
-        />
-        <FormRow
-          type="email"
-          name="email"
-          labelText="Email ID"
-        />
-        <FormRow
-          type="password"
-          name="password"
-          labelText="Password"
-        />
-        <SubmitBtn/>
+        <FormRow type="text" name="name" labelText="First Name" />
+        <FormRow type="text" name="lastName" labelText="Last Name" />
+        <FormRow type="text" name="location" labelText="Location" />
+        <FormRow type="email" name="email" labelText="Email ID" />
+        <FormRow type="password" name="password" labelText="Password" />
+        <SubmitBtn />
         <p>
           Already a member?
           <Link to="/login" className="member-btn">

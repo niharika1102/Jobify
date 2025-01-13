@@ -1,7 +1,7 @@
-import Job from "../models/jobModel.js";
 import { StatusCodes } from "http-status-codes";
 import mongoose from "mongoose";
 import day from "dayjs";
+import Job from "../models/jobModel.js";
 
 //get all jobs controller
 export const getAllJobs = async (req, res) => {

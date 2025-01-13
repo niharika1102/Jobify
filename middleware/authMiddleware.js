@@ -35,4 +35,4 @@ export const checkForTestUser = (req, res, next) => {
     throw new BadRequestError("No modifications allowed for test user");
   }
   next();
-}
+};

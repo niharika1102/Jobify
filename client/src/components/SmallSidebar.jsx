@@ -1,12 +1,11 @@
+// @ts-nocheck
 /* eslint-disable no-unused-vars */
 import React from "react";
-import Wrapper from "../assets/wrappers/SmallSidebar";
 import { useDashboardContext } from "../pages/DashboardLayout";
 import { FaTimes } from "react-icons/fa";
 import Logo from "./Logo";
-import links from "../utils/links";
-import { NavLink } from "react-router-dom";
 import Navlinks from "./NavLinks";
+import Wrapper from "../assets/wrappers/SmallSidebar";
 
 const SmallSidebar = () => {
   const { showSidebar, toggleSidebar } = useDashboardContext();

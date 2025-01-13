@@ -1,10 +1,11 @@
+// @ts-nocheck
 /* eslint-disable no-unused-vars */
 import React from "react";
-import Wrapper from "../assets/wrappers/DashboardFormPage";
 import { Form, Link, useSubmit } from "react-router-dom";
 import { FormRow, FormRowSelect } from ".";
 import { JOB_SORT_BY, JOB_STATUS, JOB_TYPE } from "../../../utils/constants";
 import { useAllJobsContext } from "../pages/AllJobs";
+import Wrapper from "../assets/wrappers/DashboardFormPage";
 
 const SearchContainer = () => {
   const { searchValues } = useAllJobsContext();

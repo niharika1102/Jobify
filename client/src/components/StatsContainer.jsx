@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React from "react";
 import { FaCalendarCheck, FaBug } from "react-icons/fa";
 import { MdOutlinePendingActions } from "react-icons/md";
-import Wrapper from "../assets/wrappers/StatsContainer"
-import StatItem from './StatItem';
+import StatItem from "./StatItem";
+import Wrapper from "../assets/wrappers/StatsContainer";
 
 const StatsContainer = ({ defaultStats }) => {
   const stats = [
@@ -34,10 +34,10 @@ const StatsContainer = ({ defaultStats }) => {
   return (
     <Wrapper>
       {stats.map((item) => {
-        return <StatItem key={item.title} {...item}/>
+        return <StatItem key={item.title} {...item} />;
       })}
     </Wrapper>
-  )
-}
+  );
+};
 
-export default StatsContainer
+export default StatsContainer;

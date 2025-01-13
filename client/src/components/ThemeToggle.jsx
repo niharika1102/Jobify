@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import Wrapper from "../assets/wrappers/ThemeToggle";
 import { TbSunFilled, TbMoonFilled } from "react-icons/tb";
 import { useDashboardContext } from "../pages/DashboardLayout";
+import Wrapper from "../assets/wrappers/ThemeToggle";
 
 const ThemeToggle = () => {
   const { isDarkTheme, toggleDarkTheme } = useDashboardContext();

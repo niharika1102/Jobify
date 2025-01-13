@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from "react";
+import day from "dayjs";
+import advanceFormat from "dayjs/plugin/advancedFormat";
 import { Link, Form } from "react-router-dom";
-import Wrapper from "../assets/wrappers/Job";
 import { MdLocationOn } from "react-icons/md";
 import { FaCalendarAlt } from "react-icons/fa";
 import { IoBriefcase } from "react-icons/io5";
-import day from "dayjs";
-import advanceFormat from "dayjs/plugin/advancedFormat";
 import JobInfo from "./JobInfo";
+import Wrapper from "../assets/wrappers/Job";
+
 day.extend(advanceFormat);
 
 const Job = ({
@@ -39,7 +40,9 @@ const Job = ({
           <div className={`status ${jobStatus}`}>{jobStatus}</div>
         </div>
         <footer className="actions">
-          <Link className="btn edit-btn" to={`/dashboard/edit-job/${_id}`}>Edit</Link>
+          <Link className="btn edit-btn" to={`/dashboard/edit-job/${_id}`}>
+            Edit
+          </Link>
           <Form method="post" action={`/dashboard/delete-job/${_id}`}>
             <button type="submit" className="btn delete-btn">
               Delete

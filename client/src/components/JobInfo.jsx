@@ -3,13 +3,13 @@ import React from "react";
 import Wrapper from "../assets/wrappers/JobInfo";
 
 // eslint-disable-next-line react/prop-types
-const JobInfo = ({icon, text}) => {
-    return (
-      <Wrapper>
-        <span className="job-icon">{icon}</span>
-        <span className="job-text">{text}</span>
-      </Wrapper>
-    );
+const JobInfo = ({ icon, text }) => {
+  return (
+    <Wrapper>
+      <span className="job-icon">{icon}</span>
+      <span className="job-text">{text}</span>
+    </Wrapper>
+  );
 };
 
 export default JobInfo;

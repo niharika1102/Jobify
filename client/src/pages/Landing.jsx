@@ -1,10 +1,10 @@
 // @ts-nocheck
 /* eslint-disable no-unused-vars */
 import React from "react";
-import Wrapper from "../assets/wrappers/LandingPage";
-import main from "../assets/images/main.svg";
 import { Link } from "react-router-dom";
 import { Logo } from "../components";
+import Wrapper from "../assets/wrappers/LandingPage";
+import main from "../assets/images/main.svg";
 
 const Landing = () => {
   return (
@@ -18,9 +18,9 @@ const Landing = () => {
             Job <span>tracking </span> app
           </h1>
           <p>
-            Empower Your Career Journey with Ease! Track your applications,
-            discover opportunities, and stay ahead in your job search—all in one
-            place. Your next big move starts here!
+            Land your dream job with ease! Track applications, stay organized,
+            and manage your profile - all in one sleek, hassle-free platform
+            designed for job seekers.
           </p>
           <Link to="/register" className="btn register-link">
             Register

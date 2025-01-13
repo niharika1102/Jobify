@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import Wrapper from "../assets/wrappers/BigSidebar";
-import NavLinks from "./NavLinks";
 import Logo from "./Logo";
+import NavLinks from "./NavLinks";
 import { useDashboardContext } from "../pages/DashboardLayout";
+import Wrapper from "../assets/wrappers/BigSidebar";
 
 const BigSidebar = () => {
   const { showSidebar } = useDashboardContext();
@@ -19,7 +19,7 @@ const BigSidebar = () => {
           <header>
             <Logo />
           </header>
-          <NavLinks isBigSidebar/>          {/*isBigSidebar helps in showing the sidebar whenever we navigate to a new dashboard tab. By default, the sidebar stays hidden when we open a tab.*/ }
+          <NavLinks isBigSidebar /> {/*isBigSidebar helps in showing the sidebar whenever we navigate to a new dashboard tab. By default, the sidebar stays hidden when we open a tab.*/}
         </div>
       </div>
     </Wrapper>

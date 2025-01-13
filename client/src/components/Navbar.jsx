@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import Wrapper from "../assets/wrappers/Navbar";
-import { FaAlignJustify } from "react-icons/fa";
 import Logo from "./Logo";
-import { useDashboardContext } from "../pages/DashboardLayout";
+import { FaAlignJustify } from "react-icons/fa";
 import LogoutContainer from "./LogoutContainer";
 import ThemeToggle from "./ThemeToggle";
+import { useDashboardContext } from "../pages/DashboardLayout";
+import Wrapper from "../assets/wrappers/Navbar";
 
 const Navbar = () => {
   const { toggleSidebar } = useDashboardContext();

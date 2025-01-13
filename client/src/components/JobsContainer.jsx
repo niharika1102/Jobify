@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import Wrapper from "../assets/wrappers/JobsContainer";
-import Job from "./Job";
 import { useAllJobsContext } from "../pages/AllJobs";
+import Job from "./Job";
 import PageBtnContainer from "./PageBtnContainer";
+import Wrapper from "../assets/wrappers/JobsContainer";
 
 const JobsContainer = () => {
   const { data } = useAllJobsContext();
@@ -27,7 +27,8 @@ const JobsContainer = () => {
           return <Job key={job._id} {...job} />;
         })}
       </div>
-      {numOfPages > 1 && <PageBtnContainer />}   {/* If the number of pages > 1, we show the page button container. Else, we dont.*/}
+      {numOfPages > 1 && <PageBtnContainer />}{" "}
+      {/* If the number of pages > 1, we show the page button container. Else, we dont.*/}
     </Wrapper>
   );
 };

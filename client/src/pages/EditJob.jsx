@@ -1,13 +1,14 @@
+// @ts-nocheck
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { FormRow, FormRowSelect, SubmitBtn } from "../components";
-import Wrapper from "../assets/wrappers/DashboardFormPage";
-import { JOB_STATUS, JOB_TYPE } from "../../../utils/constants";
 import { Form, redirect, useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
-import customFetch from "../utils/customFetch";
 import { useQuery } from "@tanstack/react-query";
+import customFetch from "../utils/customFetch";
+import { FormRow, FormRowSelect, SubmitBtn } from "../components";
+import { JOB_STATUS, JOB_TYPE } from "../../../utils/constants";
+import Wrapper from "../assets/wrappers/DashboardFormPage";
 
 const singleJobQuery = (id) => {
   return {

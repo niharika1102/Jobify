@@ -3,7 +3,6 @@
 import React from "react";
 import {
   ResponsiveContainer,
-  // @ts-ignore
   AreaChart,
   Area,
   XAxis,

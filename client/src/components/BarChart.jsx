@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React from "react";
 import {
   BarChart,
   Bar,
@@ -11,7 +11,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const BarChartComponent = ({data}) => {
+const BarChartComponent = ({ data }) => {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <BarChart data={data} margin={{ top: 50 }}>
@@ -19,10 +19,10 @@ const BarChartComponent = ({data}) => {
         <XAxis dataKey="date" />
         <YAxis allowDecimals={false} />
         <Tooltip />
-        <Bar dataKey="count" fill='#ccb000' barSize={75}/>
+        <Bar dataKey="count" fill="#ccb000" barSize={75} />
       </BarChart>
     </ResponsiveContainer>
-  )
-}
+  );
+};
 
-export default BarChartComponent
+export default BarChartComponent;
