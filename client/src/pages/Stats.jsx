@@ -1,18 +1,30 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React from "react";
 import { StatsContainer, ChartsContainer } from "../components";
-import customFetch from '../utils/customFetch';
-import { useLoaderData } from 'react-router-dom';
+import customFetch from "../utils/customFetch";
+import { useLoaderData } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 export const loader = async (req, res) => {
-  const response = await customFetch.get("/jobs/stats");
-  return response.data;
-}
+  return null;
+  // const response = await customFetch.get("/jobs/stats");
+  // return response.data;
+};
 
 const Stats = () => {
   // @ts-ignore
-  const { defaultStats, monthlyApplications } = useLoaderData();
+  // const { defaultStats, monthlyApplications } = useLoaderData();
+
+  const response = useQuery({
+    queryKey: ["stats"], //identifier
+    queryFn: () => customFetch.get("/jobs/stats"), //returns a promise
+  });
+
+  if (response.isLoading) return <h4>Loading...</h4>;
+  if (response.isError) return <h4>Error...</h4>;
+
+  const { defaultStats, monthlyApplications } = response.data.data;
 
   return (
     <>
@@ -22,6 +34,6 @@ const Stats = () => {
       )}
     </>
   )
-}
+};
 
-export default Stats
+export default Stats;
