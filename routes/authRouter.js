@@ -10,7 +10,7 @@ import {
 
 const apiLimiter = rateLimiter({
   windowMs: 15 * 60 * 1000,
-  max: 15,
+  max: 5,
   message: { message: "IP rate limit exceeded. Retry in 15 minutes" },
 });
 
