@@ -47,7 +47,7 @@ const queryClient = new QueryClient({
       staleTime: 1000 * 60 * 5, //5 minutes stale time - means that data is fetched again from the server after 5 minutes
     },
   },
-}); 
+});
 
 //setting up router
 const router = createBrowserRouter([
@@ -74,25 +74,26 @@ const router = createBrowserRouter([
       },
       {
         path: "dashboard",
-        element: <DashboardLayout queryClient={queryClient}/>,
+        element: <DashboardLayout queryClient={queryClient} />,
         loader: dashboardLoader(queryClient),
 
         children: [
           {
             index: true,
             element: <AllJobs />,
-            loader: allJobsLoader,
+            loader: allJobsLoader(queryClient),
+            errorElement: <ErrorElement />,
           },
           {
             path: "add-job",
             element: <AddJob />,
-            action: addJobAction,
+            action: addJobAction(queryClient),
           },
           {
             path: "stats",
             element: <Stats />,
             loader: statsLoader(queryClient),
-            errorElement: <ErrorElement/>,
+            errorElement: <ErrorElement />,
           },
           {
             path: "profile",
@@ -108,11 +109,11 @@ const router = createBrowserRouter([
             path: "edit-job/:id",
             element: <EditJob />,
             loader: editJobLoader,
-            action: editJobAction,
+            action: editJobAction(queryClient),
           },
           {
             path: "delete-job/:id",
-            action: deleteJobAction,
+            action: deleteJobAction(queryClient),
           },
         ],
       },
