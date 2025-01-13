@@ -1,6 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 import {
   HomeLayout,
   Landing,
@@ -13,7 +16,7 @@ import {
   Stats,
   Profile,
   Admin,
-  EditJob
+  EditJob,
 } from "./pages"; //using named imports from index file
 
 import { action as registerAction } from "./pages/Register";
@@ -27,7 +30,6 @@ import { loader as allJobsLoader } from "./pages/AllJobs";
 import { loader as editJobLoader } from "./pages/EditJob";
 import { loader as adminLoader } from "./pages/Admin";
 import { loader as statsLoader } from "./pages/Stats";
-
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const checkDefaultTheme = () => {
@@ -110,8 +112,21 @@ const router = createBrowserRouter([
 ]);
 
 //returning the specified route based on the url asked for
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, //5 minutes stale time - means that data is fetched again from the server after 5 minutes
+    },
+  },
+});
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
 };
 
 export default App;
