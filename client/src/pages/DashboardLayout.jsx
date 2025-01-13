@@ -1,36 +1,51 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 import React, { createContext, useContext, useState } from "react";
-import { Outlet, redirect, useLoaderData, useNavigate, useNavigation } from "react-router-dom";
+import {
+  Outlet,
+  redirect,
+  useLoaderData,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
 import Wrapper from "../assets/wrappers/Dashboard";
 import { BigSidebar, Navbar, SmallSidebar, Loading } from "../components";
 import { checkDefaultTheme } from "../App";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
 
 //setting up a context to pass values to components without passing it through the entire component tree
 // @ts-ignore
 const DashboardContext = createContext();
 
+const userQuery = {
+  queryKey: ["user"],
+  queryFn: async () => {
+    const { data } = await customFetch("/users/current-user");
+    return data;
+  },
+};
+
 //setting up loader - to fetch the values before the component is rendered
-export const loader = async () => {
+export const loader = (queryClient) => async () => {
   //we take the data from the get request made to users/current-user and return the data. In case of any issues, we logout the user from the website by redirecting them to the base route ("/").
   try {
-    const { data } = await customFetch.get("/users/current-user");
-    return data;
+    return await queryClient.ensureQueryData(userQuery);
   } catch (error) {
     return redirect("/");
   }
 };
 
-const DashboardLayout = () => {
+const DashboardLayout = ({ queryClient }) => {
   // @ts-ignore
-  const { user } = useLoaderData(); //user info for profile
+  const { user } = useQuery(userQuery).data; //user info for profile
   const [showSidebar, setShowSidebar] = useState(false); //to show or hide sidebar
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme); //to toggle betwenn light and dark theme
 
   const navigation = useNavigation();
-  const isPageLoading = navigation.state === 'loading';
+  const isPageLoading = navigation.state === "loading";
 
   const navigate = useNavigate();
 
@@ -73,7 +88,7 @@ const DashboardLayout = () => {
           <div>
             <Navbar />
             <div className="dashboard-page">
-              {isPageLoading ? <Loading/> : <Outlet context={{ user }} />}
+              {isPageLoading ? <Loading /> : <Outlet context={{ user }} />}
             </div>
           </div>
         </main>
