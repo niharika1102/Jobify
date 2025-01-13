@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   Outlet,
   redirect,
@@ -43,6 +44,7 @@ const DashboardLayout = ({ queryClient }) => {
   const { user } = useQuery(userQuery).data; //user info for profile
   const [showSidebar, setShowSidebar] = useState(false); //to show or hide sidebar
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme); //to toggle betwenn light and dark theme
+  const [isAuthError, setIsAuthError] = useState(false);
 
   const navigation = useNavigation();
   const isPageLoading = navigation.state === "loading";
@@ -70,6 +72,25 @@ const DashboardLayout = ({ queryClient }) => {
     queryClient.invalidateQueries();
     toast.success("User logged out successfully");
   };
+
+  //axios interceptors
+  customFetch.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error.response.status === 401) {
+        setIsAuthError(true);
+      }
+
+      return Promise.reject(error);
+    }
+  );
+
+  useEffect(() => {
+    if (!isAuthError) return;
+    logoutUser();
+  }, [isAuthError]);
 
   return (
     <DashboardContext.Provider
