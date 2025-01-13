@@ -7,6 +7,8 @@ import morgan from "morgan"; //provides logs of our requests. it is a middleware
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import cloudinary from "cloudinary";
+import helmet from "helmet";
+import mongoSanitize from "express-mongo-sanitize";
 
 //public
 import { dirname } from "path";
@@ -24,8 +26,9 @@ import userRouter from "./routes/userRouter.js";
 
 const app = express();
 app.use(express.json()); //middleware setup
+app.use(helmet()); //security package
+app.use(mongoSanitize()); //security package
 app.use(cookieParser()); //access and verify cookies
-
 
 //cloudinary setup
 // @ts-ignore
@@ -42,14 +45,15 @@ if (process.env.NODE_ENV === "development") {
 }
 app.use(express.static(path.resolve(__dirname, "./client/dist")));
 
-app.get("/", (req, res) => {
-  res.send("Hello hooman");
-});
+//REMOVE IN CODE CLEANUP
+// app.get("/", (req, res) => {
+//   res.send("Hello hooman");
+// });
 
-//dummy route
-app.get("/api/v1/test", (req, res) => {
-  res.json({ message: "Test route" });
-});
+// //dummy route
+// app.get("/api/v1/test", (req, res) => {
+//   res.json({ message: "Test route" });
+// });
 
 //middleware that defines the base URL for the router and also mentions the router that is going to handle all the requests coming to those routes
 app.use("/api/v1/jobs", authenticateUser, jobRouter);
